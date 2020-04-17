@@ -1,0 +1,38 @@
+
+<p id="notice"><%= notice %></p>
+
+<% if user_signed_in? %>
+  <% if @is_user_follow.present?%>
+      <%= button_to "Unfollow User #{@question.user.get_name}", {:controller => "follows", :action => "unfollow_user", :followable_id => @question.user.id, :followable_type => 'User', :user_id => current_user.id, :question_id => @question.id} , {:method=>:post}  %>
+  <% else %>
+      <%= button_to "Follow User #{@question.user.get_name}", {:controller => "follows", :action => "follow_user", :followable_id => @question.user.id, :followable_type => 'User', :user_id => current_user.id, :question_id => @question.id} , {:method=>:post}  %>
+  <% end %>
+
+  <% if @is_topic_follow.present?%>
+      <%= button_to "Unfollow Topic #{@question.topic.name}", {:controller => "follows", :action => "unfollow_topic", :followable_id => @question.topic.id, :followable_type => 'Topic', :user_id => current_user.id, :question_id => @question.id} , {:method=>:post}  %>
+  <% else %>
+      <%= button_to "Follow Topic #{@question.topic.name}", {:controller => "follows", :action => "follow_topic", :followable_id => @question.topic.id, :followable_type => 'Topic', :user_id => current_user.id, :question_id => @question.id} , {:method=>:post}  %>
+  <% end %>
+<%else%>
+
+<%= button_to "Follow User", user_session_path, class: 'follow_user', method: :get %>
+<%= button_to "Follow Topic", user_session_path, class: 'follow_user', method: :get %>  
+<% end %>
+
+<h1><%=@question.title%></h1>
+
+<%@answers.each do |answer|%>
+	<p>
+		<%=answer.ans%>      Answer By <%=answer.user.try(:get_name)%>   
+	</p>
+<%end%>
+
+
+<%= form_tag(:controller => "answers", :action => "create_answer") do %>  
+  <%= hidden_field_tag :question_id, @question.id,:name => "answer[question_id]" %>
+  <%= hidden_field_tag :user_id, current_user.try(:id),:name => "answer[user_id]" %>    
+  <%#= text_area_tag :ans,:palceholder => "Write Comment",:name => "answer[ans]" %>  
+  <%= text_area_tag :ans, "", name: "answer[ans]", placeholder: "Write Comment..." %>
+  <%= submit_tag "Submit" %>    
+<% end %> 
+

@@ -1,0 +1,22 @@
+== README
+
+This README would normally document whatever steps are necessary to get the
+application up and running.
+
+Things you may want to cover:
+
+* start server $rails server
+
+* install bundle $bundle install 
+
+* Database creation and migration $rake db:create db:migrate
+
+* On browser http://localhost:3000/user_sign_in
+
+* API Service 
+
+* http://localhost:3000/api/v1/topic_question_answers/get_topicwise_questions_answers.json
+
+* http://localhost:3000/api/v1/topic_question_answers/get_user_topic_followers_count.json
+
+<tt>rake doc:app</tt>.

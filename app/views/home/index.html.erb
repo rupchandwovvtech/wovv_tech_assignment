@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Questions</h1>
+
+<table>
+  <% @topics.each do |topic| %>
+  <thead>
+    <tr>
+      <th><%=topic.name%></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% topic.questions.each do |question| %>   
+      <tr>
+        <td><a href="/home/<%=question.id%>"><%= question.title %></td>
+      </tr>
+      <%end%>
+  </tbody>
+  <%end%>
+</table>
